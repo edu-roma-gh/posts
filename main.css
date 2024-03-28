@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100svh;
+  padding: 30px;
+  flex-direction: column;
+}
+
+.cont {
+  width: 400px;
+  min-height: 400px;
+  border: 1px solid gainsboro;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+}
+
+.flexChild {
+  width: 100%;
+}
+
+.btn {
+  padding: 16px 32px;
+  outline: none;
+  background-color: rgb(21, 50, 237);
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 16px;
+}
+
+select {
+  height: 40px;
+  padding: 12px;
+}
+
+input {
+  height: 40px;
+  padding: 12px;
+}
+
+.br {
+  border-radius: 16px;
+}
+
+form {
+  background-color: plum;
+  border-radius: 24px;
+}
+
+textarea {
+  padding: 16px;
+}
+
+.postCont {
+  width: 100%;
+  padding: 40px;
+  margin-top: 60px;
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.center {
+  text-align: center;
+}

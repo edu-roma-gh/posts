@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+  <form class="cont">
+    <input id="titleInput" class="br flexChild" type="text" placeholder="Title">
+    <textarea id="bodyText" class="br flexChild" rows="5" cols="8"></textarea>
+    <select class="flexChild" name="cars" id="selectItem">
+      <option value="default">Select Category</option>
+      <option value="Social">Social</option>
+      <option value="Linkedin">Linkedin</option>
+      <option value="Facebook">Facebook</option>
+      <option value="Instagram">Instagram</option>
+      <option value="Twitter">Twitter</option>
+      <option value="Tiktok">Tiktok</option>
+      <option value="Odnaklassniki">Odnaklassniki</option>
+    </select>
+    <button onclick="submitForm()" class="btn" type="button">Save</button>
+  </form>
+  <div id="postsCont" class="postCont">
+  </div>
+</body>
+<script src="./index.js"></script>
+
+</html>
