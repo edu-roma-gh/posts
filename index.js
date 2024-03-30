@@ -4,49 +4,69 @@ const bodyText = document.getElementById('bodyText');
 const selectItem = document.getElementById('selectItem');
 const postsCont = document.getElementById('postsCont');
 const notFound = document.createElement('h2');
-let posts = []
-if (localStorage.getItem('posts')) {
-  posts = JSON.parse(localStorage.getItem('posts'));
+const loadingContent = document.createElement('h2');
+const submitBtn = document.getElementById('submitBtn');
+let edittingPostId = null;
+
+let postsList = []
+
+function handleEdit(e) {
+  const [tag, postId] = e.target.id.split("_")
+  const found = postsList.find(post => post.id == postId);
+  titleInput.value = found.title;
+  bodyText.value = found.body;
+  submitBtn.innerText = "Save changes";
+  submitBtn.classList.add("edit");
+  edittingPostId = postId;
 }
-if (posts.length == 0) {
-  notFound.innerText = "You have no posts, add one...";
-  notFound.classList.add('center')
-  postsCont.appendChild(notFound)
-}
+
 function createPost(post) {
   const cont = document.createElement('div');
   const title = document.createElement('h2');
-  const tag = document.createElement('span');
   const body = document.createElement('p');
+  const buttonsCont = document.createElement('div');
   body.innerText = post.body;
   title.innerText = post.title;
-  tag.innerText = post.category;
   cont.id = post.id;
-  const deleteBtn = document.createElement('button');
-  deleteBtn.innerText = "Delete";
-
+  const editButton = document.createElement('button');
+  editButton.innerText = "Edit";
+  editButton.classList.add('btn');
+  editButton.style.background = 'red';
+  editButton.addEventListener('click', handleEdit);
+  editButton.id = `btn_${post.id}`
+  buttonsCont.appendChild(editButton)
   cont.appendChild(title);
   cont.appendChild(body);
-  cont.appendChild(tag);
-  cont.appendChild(deleteBtn);
+  cont.appendChild(buttonsCont);
   postsCont.appendChild(cont)
 }
 
-posts.map(post => {
-  id = +post.id + 1;
-  createPost(post);
-})
-
 function submitForm() {
   const post = {
-    id: id,
     title: titleInput.value,
     body: bodyText.value,
-    category: selectItem.value
   }
-  id++;
-  posts.push(post);
-  localStorage.setItem('posts', JSON.stringify(posts));
-  createPost(post);
+  if (edittingPostId) {
+    const cont = document.getElementById(edittingPostId);
+    const body = cont.querySelector('p');
+    const title = cont.querySelector('h2');
+    body.innerText = post.body;
+    title.innerText = post.title
+  } else {
+    post.id = postsList[postsList.length - 1].id + 1;
+    postsList.push(post);
+    createPost(post);
+  }
 
 }
+
+function loadPosts() {
+  fetch("https://jsonplaceholder.typicode.com/posts")
+    .then(res => res.json())
+    .then(posts => {
+      postsList = posts;
+      posts.map(post => createPost(post))
+    }) 
+}
+
+loadPosts()
